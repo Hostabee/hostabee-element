@@ -1,0 +1,39 @@
+{
+  "name": "hostabee-element",
+  "version": "1.0.0",
+  "description": "Polymer element which embeds internationalization",
+  "main": "hostabee-element.html",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "commitizen": "^3.1.2",
+    "standard-version": "^6.0.1"
+  },
+  "scripts": {
+    "test": "polymer test",
+    "prestart": "polymer analyze hostabee-* > analysis.json",
+    "start": "polymer serve --port 3000 --open",
+    "release": "standard-version",
+    "release:major": "standard-version --release-as major",
+    "release:minor": "standard-version --release-as minor",
+    "release:patch": "standard-version --release-as patch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hostabee/hostabee-element.git"
+  },
+  "keywords": [
+    "hostabee",
+    "polymer",
+    "webcomponent",
+    "web-component"
+  ],
+  "author": "Hostabee SAS",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Hostabee/hostabee-element/issues"
+  },
+  "homepage": "https://github.com/Hostabee/hostabee-element#readme"
+}

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>hostabee-element test</title>
+
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+
+  <link rel="import" href="../hostabee-element.html">
+</head>
+
+<body>
+
+  <test-fixture id="BasicTestFixture">
+    <template>
+      <hostabee-element></hostabee-element>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="InheritanceTestFixture">
+    <template>
+      <div>
+        <script>
+          class MyElement extends Hostabee.Element {
+            static get is() {
+              return 'my-element';
+            }
+          }
+          window.customElements.define(MyElement.is, MyElement);
+        </script>
+        <my-element></my-element>
+      </div>
+    </template>
+  </test-fixture>
+
+  <script>
+    describe('hostabee-element', function() {
+      context('Basic', function() {
+        let element;
+
+        before(function() {
+          element = fixture('BasicTestFixture');
+        });
+
+        it('should be inheriting from Polymer element', function() {
+          expect(element).to.be.instanceOf(Polymer.Element);
+          expect(element).to.be.instanceOf(Hostabee.Element);
+        });
+
+        it('should implements app-localize-behavior', function() {
+          expect(element.behaviors.length).to.be.equal(1);
+          let behavior = element.behaviors[0];
+          expect(behavior.properties).to.have.ownPropertyDescriptor('resources');
+          expect(behavior.properties).to.have.ownPropertyDescriptor('formats');
+          expect(behavior.properties).to.have.ownPropertyDescriptor('language');
+          expect(behavior.properties).to.have.ownPropertyDescriptor('useKeyIfMissing');
+          expect(behavior.properties).to.have.ownPropertyDescriptor('bubbleEvent');
+          expect(behavior.loadResources).to.be.a('function');
+          expect(element.localize).to.be.a('function');
+        });
+      });
+
+      context('Inheritance', function() {
+        let element;
+
+        before(function() {
+          element = fixture('InheritanceTestFixture').querySelector('my-element');
+        });
+
+        it('should load resources according to language set', function(done) {
+          // Wait first render to change the language.
+          flush(function() {
+            element.language = 'en';
+          });
+          // Need time to load resources.
+          setTimeout(() => {
+            expect(element.localize('greetings')).to.be.equal('Hello!');
+            element.language = 'fr';
+            expect(element.localize('greetings')).to.be.equal('Bonjour !');
+            done();
+          }, 100);
+        });
+
+        it('should fallback to English if locales not found for the given language', function(done) {
+          // Wait first render to change the language.
+          flush(function() {
+            element.language = 'de';
+          });
+          // Need time to load resources.
+          setTimeout(() => {
+            expect(element.language).to.be.equal('en');
+            expect(element.localize('greetings')).to.be.equal('Hello!');
+            done();
+          }, 100);
+        });
+
+        it('should allow to specify locales folder path', function(done) {
+          // Wait first render to change the language.
+          flush(function() {
+            element.localesFolder = 'locales';
+            element.language = 'de';
+          });
+          // Need time to load resources.
+          setTimeout(() => {
+            expect(element.localize('greetings')).to.be.equal('Hallo!');
+            done();
+          }, 100);
+        });
+
+        it('should allow to specify one file with all supported languages', function(done) {
+          // Wait first render to change the language.
+          flush(function() {
+            element.localesFile = 'all.json';
+          });
+          // Need time to load resources.
+          setTimeout(() => {
+            element.language = 'en';
+            expect(element.localize('greetings')).to.be.equal('Hello!');
+            element.language = 'fr';
+            expect(element.localize('greetings')).to.be.equal('Bonjour !');
+            element.language = 'de';
+            expect(element.localize('greetings')).to.be.equal('Hallo!');
+            done();
+          }, 100);
+        });
+      });
+    });
+  </script>
+
+</body>
+
+</html>

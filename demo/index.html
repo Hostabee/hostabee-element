@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>hostabee-element demo</title>
+
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../hostabee-element.html">
+
+  <custom-style>
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+  </custom-style>
+</head>
+
+<body>
+  <div class="vertical-section-container centered">
+    <h3>Basic hostabee-element demo</h3>
+    <demo-snippet>
+      <template>
+        <!-- The "onload" callback needed to ensure Hostabee.Element is imported
+          before trying to define the class. You don't need this workaround in
+          your app. -->
+        <link rel="import" href="../hostabee-element.html" onload="defineMyElement()">
+        <script>
+          function defineMyElement() {
+            const MyElement = class extends Hostabee.Element {
+              static get is() {
+                return 'my-element';
+              }
+              ready() {
+                super.ready();
+                // Workaround to bridge the lack of data binding. Not needed in
+                // your app.
+                this.addEventListener('app-localize-resources-loaded', () => {
+                  this.textContent = this.localize('greetings');
+                });
+              }
+            }
+            window.customElements.define(MyElement.is, MyElement);
+          }
+        </script>
+        <my-element language="fr"></my-element>
+      </template>
+    </demo-snippet>
+  </div>
+</body>
+
+</html>
