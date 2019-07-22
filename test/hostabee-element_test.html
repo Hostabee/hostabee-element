@@ -72,60 +72,63 @@
         });
 
         it('should load resources according to language set', function(done) {
-          // Wait first render to change the language.
-          flush(function() {
-            element.language = 'en';
-          });
-          // Need time to load resources.
-          setTimeout(() => {
-            expect(element.localize('greetings')).to.be.equal('Hello!');
-            element.language = 'fr';
+          // Check French is loaded and finish test
+          const asyncAssertFrench = function() {
             expect(element.localize('greetings')).to.be.equal('Bonjour !');
             done();
-          }, 100);
+          };
+          // Check English is loaded
+          const asyncAssertEnglish = function() {
+            // Firefox needs time to load resources.
+            setTimeout(() => {
+              expect(element.localize('greetings')).to.be.equal('Hello!');
+              element.addEventListener('app-localize-resources-loaded', asyncAssertFrench, {
+                once: true,
+              });
+              element.language = 'fr';
+            }, 100);
+          };
+          element.addEventListener('app-localize-resources-loaded', asyncAssertEnglish, {
+            once: true,
+          });
+          element.language = 'en';
         });
 
         it('should fallback to English if locales not found for the given language', function(done) {
-          // Wait first render to change the language.
-          flush(function() {
-            element.language = 'de';
-          });
-          // Need time to load resources.
-          setTimeout(() => {
+          element.addEventListener('app-localize-resources-loaded', function() {
             expect(element.language).to.be.equal('en');
             expect(element.localize('greetings')).to.be.equal('Hello!');
             done();
-          }, 100);
+          }, {
+            once: true,
+          });
+          element.language = 'de';
         });
 
         it('should allow to specify locales folder path', function(done) {
-          // Wait first render to change the language.
-          flush(function() {
-            element.localesFolder = 'locales';
-            element.language = 'de';
-          });
-          // Need time to load resources.
-          setTimeout(() => {
+          element.addEventListener('app-localize-resources-loaded', function() {
             expect(element.localize('greetings')).to.be.equal('Hallo!');
             done();
-          }, 100);
+          }, {
+            once: true,
+          });
+          element.localesFolder = 'locales';
+          element.language = 'de';
         });
 
         it('should allow to specify one file with all supported languages', function(done) {
-          // Wait first render to change the language.
-          flush(function() {
-            element.localesFile = 'all.json';
-          });
-          // Need time to load resources.
-          setTimeout(() => {
-            element.language = 'en';
+          element.addEventListener('app-localize-resources-loaded', function() {
             expect(element.localize('greetings')).to.be.equal('Hello!');
             element.language = 'fr';
             expect(element.localize('greetings')).to.be.equal('Bonjour !');
             element.language = 'de';
             expect(element.localize('greetings')).to.be.equal('Hallo!');
             done();
-          }, 100);
+          }, {
+            once: true,
+          });
+          element.localesFile = 'test/all.json';
+          element.language = 'en';
         });
       });
     });
