@@ -1,7 +1,7 @@
 # \<hostabee-element\>
 
 [![Build Status](https://travis-ci.org/Hostabee/hostabee-element.svg?branch=master)](https://travis-ci.org/Hostabee/hostabee-element)
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![Greenkeeper badge](https://badges.greenkeeper.io/Hostabee/hostabee-element.svg)](https://greenkeeper.io/)
 
 Polymer element which embeds internationalization.
 
