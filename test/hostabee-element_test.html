@@ -94,17 +94,6 @@
           element.language = 'en';
         });
 
-        it('should fallback to English if locales not found for the given language', function(done) {
-          element.addEventListener('app-localize-resources-loaded', function() {
-            expect(element.language).to.be.equal('en');
-            expect(element.localize('greetings')).to.be.equal('Hello!');
-            done();
-          }, {
-            once: true,
-          });
-          element.language = 'de';
-        });
-
         it('should allow to specify locales folder path', function(done) {
           element.addEventListener('app-localize-resources-loaded', function() {
             expect(element.localize('greetings')).to.be.equal('Hallo!');
@@ -129,6 +118,15 @@
           });
           element.localesFile = 'test/all.json';
           element.language = 'en';
+        });
+
+        it('should retry without region if locales file not found', function(done) {
+          element.language = 'fr-CA';
+          setTimeout(() => {
+            expect(element.language).to.be.equal('fr');
+            expect(element.localize('greetings')).to.be.equal('Bonjour !');
+            done();
+          }, 50);
         });
       });
     });
