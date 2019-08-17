@@ -1,6 +1,6 @@
 {
   "name": "hostabee-element",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Polymer element which embeds internationalization",
   "main": "hostabee-element.html",
   "directories": {
