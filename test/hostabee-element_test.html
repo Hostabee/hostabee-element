@@ -80,7 +80,7 @@
           // Check English is loaded
           const asyncAssertEnglish = function() {
             // Firefox needs time to load resources.
-            setTimeout(() => {
+            setTimeout(function() {
               expect(element.localize('greetings')).to.be.equal('Hello!');
               element.addEventListener('app-localize-resources-loaded', asyncAssertFrench, {
                 once: true,
@@ -122,7 +122,7 @@
 
         it('should retry without region if locales file not found', function(done) {
           element.language = 'fr-CA';
-          setTimeout(() => {
+          setTimeout(function() {
             expect(element.language).to.be.equal('fr');
             expect(element.localize('greetings')).to.be.equal('Bonjour !');
             done();
