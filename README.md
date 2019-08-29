@@ -1,6 +1,7 @@
 # \<hostabee-element\>
 
 [![Build Status](https://travis-ci.org/Hostabee/hostabee-element.svg?branch=master)](https://travis-ci.org/Hostabee/hostabee-element)
+[![Sauce Test Status](https://saucelabs.com/buildstatus/mlouchart)](https://app.saucelabs.com/u/mlouchart)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![Greenkeeper badge](https://badges.greenkeeper.io/Hostabee/hostabee-element.svg)](https://greenkeeper.io/)
 
 Polymer element which embeds internationalization.
@@ -67,3 +68,7 @@ Apache License 2.0
 Cross-browser Testing Platform and Open Source ❤️Provided by:
 <!-- Yes, I know. HTML inside mardown file... The only way to change the SVG size without open Inkscape. It could be your first good contribution to fix it! -->
 [<img src="./images/sauce_labs_badge.svg" width="150">](https://saucelabs.com)
+
+## Browsers compatibility matrix
+
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/mlouchart.svg)](https://saucelabs.com/u/mlouchart)
