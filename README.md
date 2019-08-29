@@ -61,3 +61,9 @@ Once installed, import it in your application:
 ## License
 
 Apache License 2.0
+
+## Credits
+
+Cross-browser Testing Platform and Open Source ❤️Provided by:
+<!-- Yes, I know. HTML inside mardown file... The only way to change the SVG size without open Inkscape. It could be your first good contribution to fix it! -->
+[<img src="./images/sauce_labs_badge.svg" width="120">](https://saucelabs.com)
