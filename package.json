@@ -8,7 +8,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "commitizen": "^4.0.3",
+    "commitizen": "^4.1.1",
     "standard-version": "^7.0.0"
   },
   "scripts": {
