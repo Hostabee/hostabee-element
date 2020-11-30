@@ -8,8 +8,8 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "commitizen": "^4.0.3",
-    "standard-version": "^7.0.0"
+    "commitizen": "^4.2.2",
+    "standard-version": "^7.1.0"
   },
   "scripts": {
     "test": "polymer test",
